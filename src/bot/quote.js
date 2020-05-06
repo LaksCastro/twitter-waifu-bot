@@ -1,9 +1,10 @@
-const { TwitterReplyFactory } = require("../factory");
-
-const { get } = require("../client/twitter");
-
 const AutomaticReplyFactory = () => {
+  const { get } = require("../client/twitter");
+
+  const { TwitterReplyFactory, ConsoleFactory } = require("../factory");
+
   const TwitterReply = TwitterReplyFactory();
+  const Console = ConsoleFactory();
 
   let client = null;
 
@@ -15,13 +16,10 @@ const AutomaticReplyFactory = () => {
   const onUserQuoteBot = (tweet) => {
     const { user, id_str } = tweet;
 
-    console.log("\x1b[36m%s\x1b[0m", "Starting reply generation...");
+    Console.write(Console.green("Starting reply generation..."));
 
     const whenTaskEnds = () => {
-      console.log(
-        "\x1b[36m%s\x1b[0m",
-        "Successfully reply to user: " + user.name
-      );
+      Console.write(Console.green("Successfully reply to user: " + user.name));
     };
 
     const getStatus = (media) => ({

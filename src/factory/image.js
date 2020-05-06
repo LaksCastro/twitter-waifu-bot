@@ -1,7 +1,12 @@
 const { random } = require("../utils");
 
 const ImageApiFactory = () => {
-  const { NekoBotApiFactory, PixivApiFactory } = require("./index");
+  const {
+    NekoBotApiFactory,
+    PixivApiFactory,
+    ConsoleFactory,
+  } = require("./index");
+  const Console = ConsoleFactory();
 
   // const availableApis = [NekoBotApiFactory, PixivApiFactory];
   const availableApis = [PixivApiFactory];
@@ -27,7 +32,7 @@ const ImageApiFactory = () => {
 
     const response = await Api.get();
 
-    console.log("2. Downloading Image...");
+    Console.write("2. Downloading Image...");
 
     const result = await Api.generateResult(response);
 

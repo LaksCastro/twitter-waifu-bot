@@ -1,6 +1,9 @@
-const { get } = require("../client/twitter");
-
 const TwitterApiFactory = () => {
+  const { get } = require("../client/twitter");
+
+  const { ConsoleFactory } = require("./index");
+  const Console = ConsoleFactory();
+
   let client = null;
   // ===========================================================================================
   // Send a request to Twitter API for to create a Tweet with a text and image
@@ -13,12 +16,12 @@ const TwitterApiFactory = () => {
 
     client.post("media/upload", { media: imageData }, function (error, media) {
       if (error) {
-        console.log(error);
+        Console.error(error);
       } else {
         const status = getStatus(media);
 
         client.post("statuses/update", status, function (error) {
-          if (error) return console.log(error);
+          if (error) return Console.error(error);
         });
       }
     });

@@ -4,12 +4,14 @@ const TwitterReplyFactory = () => {
     ImageApiFactory,
     ConverterFactory,
     FileManagerFactory,
+    ConsoleFactory,
   } = require("./index");
 
   const ImageApi = ImageApiFactory();
   const Converter = ConverterFactory();
   const FileManager = FileManagerFactory();
   const TwitterApi = TwitterApiFactory();
+  const Console = ConsoleFactory();
 
   // ===========================================================================================
   // This function is a Wrapper for execute the following steps:
@@ -27,16 +29,17 @@ const TwitterReplyFactory = () => {
       throw new Error("Function to get tweet status is necessary");
 
     try {
-      console.log("\x1b[0m", "1. Fetching image from API's...");
+      Console.write("1. Fetching image from API's...");
 
       const { imagePath, imageWebpPath } = await ImageApi.get();
 
-      console.log("3. Converting image to webp...");
+      Console.write("3. Converting image to webp...");
       await Converter.convert(imagePath, imageWebpPath, "webp");
 
       const imageData = FileManager.getBase64(imageWebpPath);
 
-      console.log("4. The request was sent to the Twitter server");
+      Console.write("4. The request was sent to the Twitter server");
+
       TwitterApi.requestReply(imageData, getStatus, onComplete);
 
       FileManager.del(imagePath);
@@ -51,8 +54,8 @@ const TwitterReplyFactory = () => {
         time: date.toLocaleTimeString(),
       };
 
-      console.log(datelog);
-      console.log(error);
+      Console.error(datelog);
+      Console.error(error);
     }
   };
 

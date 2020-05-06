@@ -1,7 +1,7 @@
-const { TwitterReplyFactory } = require("../factory");
-
 const AutomaticTweetFactory = () => {
+  const { TwitterReplyFactory, ConsoleFactory } = require("../factory");
   const TwitterReply = TwitterReplyFactory();
+  const Console = ConsoleFactory();
 
   // 15 minutes
   const timeInterval = 1000 * 60 * 15;
@@ -14,10 +14,11 @@ const AutomaticTweetFactory = () => {
   // And when task ends, this set another setTimeout to call sheself, making a infinite loop
   // ===========================================================================================
   const loop = () => {
-    console.log("\x1b[32m", "Starting tweet generation...");
+    Console.write(Console.yellow("Starting tweet generation..."));
 
     const whenTaskEnds = () => {
-      console.log("\x1b[32m", "Complete! Tweet was sent...");
+      Console.write(Console.yellow("Complete! Tweet was sent..."));
+
       loopId = setTimeout(loop, timeInterval);
     };
 
