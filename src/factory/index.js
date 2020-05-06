@@ -13,10 +13,5 @@ readdirSync(path.join(__dirname))
 
     const Factory = require(fullPath);
 
-    allFactories = {
-      ...allFactories,
-      [Factory.name]: Factory,
-    };
+    exports[Factory.name] = Factory;
   });
-
-module.exports = allFactories;

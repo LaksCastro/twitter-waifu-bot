@@ -13,4 +13,4 @@ const PixivApiFactory = () => {
   return Object.freeze(public);
 };
 
-module.exports = NekoBotApiFactory;
+module.exports = PixivApiFactory;

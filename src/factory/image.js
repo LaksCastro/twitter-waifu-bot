@@ -1,10 +1,12 @@
-const { NekoBotApiFactory, PixivApiFactory } = require("./index");
-
-// const availableApis = [NekoBotApiFactory, PixivApiFactory];
-// const availableApis = [PixivApiFactory];
-const availableApis = [NekoBotApiFactory];
+const { random } = require("../utils");
 
 const ImageApiFactory = () => {
+  const { NekoBotApiFactory, PixivApiFactory } = require("./index");
+
+  // const availableApis = [NekoBotApiFactory, PixivApiFactory];
+  // const availableApis = [PixivApiFactory];
+  const availableApis = [NekoBotApiFactory];
+
   // ===========================================================================================
   // This function is a Wrapper for execute the following steps:
   // - Get a random ImageAPI Factory (NekoBotApi || PixivApi)

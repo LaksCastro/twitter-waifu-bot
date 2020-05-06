@@ -1,12 +1,12 @@
-const {
-  TwitterApiFactory,
-  DownloadFactory,
-  ImageApiFactory,
-  ConverterFactory,
-  FileManagerFactory,
-} = require("./index");
-
 const TwitterReplyFactory = () => {
+  const {
+    TwitterApiFactory,
+    DownloadFactory,
+    ImageApiFactory,
+    ConverterFactory,
+    FileManagerFactory,
+  } = require("./index");
+
   const ImageApi = ImageApiFactory();
   const Download = DownloadFactory();
   const Converter = ConverterFactory();
