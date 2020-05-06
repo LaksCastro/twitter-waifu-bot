@@ -6,6 +6,11 @@ const AutomaticReplyFactory = () => {
 
   let client = null;
 
+  // ===========================================================================================
+  // This function is executed when anyone mark the bot (Read about enable function, more below)
+  // ===========================================================================================
+  // @param tweet - All twitter tweet data, all about date, user
+  // ===========================================================================================
   const onUserQuoteBot = (tweet) => {
     const { user, id_str } = tweet;
 
@@ -19,6 +24,11 @@ const AutomaticReplyFactory = () => {
     );
   };
 
+  // ===========================================================================================
+  // This function enable a listener for to send automatic reply when anyone mark the bot in a tweet, thus:
+  // ~ le me (@UserName) in Twitter: "Woooow, this bot @WaifuAwesomeBot is working in a code with Factory Pattern"
+  // ~ le bot listen and reply: "@UserName #StayInHome" with a lendary image ;)
+  // ===========================================================================================
   const enable = () => {
     client = get();
 

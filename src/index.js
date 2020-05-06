@@ -1,3 +1,6 @@
+// ===========================================================================================
+// This is a Entrypoint, all bot work with the imported modules here
+// ===========================================================================================
 const Twit = require("twit");
 const config = require("./config");
 

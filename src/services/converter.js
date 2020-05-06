@@ -1,8 +1,15 @@
 const sharp = require("sharp");
 
 const ConverterFactory = () => {
-  const convert = async (oldPath, newPath) => {
-    await sharp(oldPath).toFormat("webp").toFile(newPath);
+  // ===========================================================================================
+  // To convert a existing file to a new file with the new format
+  // ===========================================================================================
+  // @param oldPath: Path that current file exists
+  // @param newPath: Path output of the new file with the new format
+  // @param newFormat: The new format of the old file
+  // ===========================================================================================
+  const convert = async (oldPath, newPath, newFormat) => {
+    await sharp(oldPath).toFormat(newFormat).toFile(newPath);
   };
 
   const public = {

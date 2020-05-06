@@ -4,7 +4,13 @@ const FileManagerFactory = require("../file");
 const DownloadFactory = () => {
   const FileManager = FileManagerFactory();
 
-  const request = async (url, outputPath, onComplete = () => {}) => {
+  // ===========================================================================================
+  // This function send a request for to download a file and save in a path
+  // ===========================================================================================
+  // @param url: File url to download
+  // @param outputPath: String with the path for to save the downloaded file
+  // ===========================================================================================
+  const request = async (url, outputPath) => {
     const response = await axios({
       url,
       responseType: "stream",

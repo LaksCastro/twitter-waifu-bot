@@ -1,72 +1,24 @@
-const axios = require("axios");
-const path = require("path");
-const { random } = require("../utils");
+const NekoBotApiFactory = require("./nekobot");
+const PixivApiFactory = require("./pixiv");
 
-const NekoBotApiFactory = () => {
-  let nekoBotTypes = ["neko", "hmidriff", "coffee", "kemonomimi", "holo"];
-
-  let getNekoBotEndpoint = (type) =>
-    `https://nekobot.xyz/api/image?type=${type}`;
-
-  const generateResult = (response) => {
-    const {
-      data: { message: imageUrl, img_name: imageFilename },
-    } = response;
-
-    const imageName = imageFilename
-      .split(".")
-      .filter((_, i, all) => i < all.length - 1)
-      .join(".");
-
-    const imagePath = path.normalize(
-      path.join(__dirname, "..", "temp", imageFilename)
-    );
-
-    const imageWebpPath = path.normalize(
-      path.join(__dirname, "..", "temp", imageName + ".webp")
-    );
-
-    const result = {
-      imageUrl,
-      imageFilename,
-      imagePath,
-      imageWebpPath,
-      imageName,
-    };
-
-    return result;
-  };
-  const get = async () => {
-    const response = await axios.get(
-      getNekoBotEndpoint(nekoBotTypes[random(0, nekoBotTypes.length - 1)])
-    );
-
-    const result = generateResult(response);
-
-    return result;
-  };
-
-  const public = {
-    get,
-  };
-
-  return Object.freeze(public);
-};
-
-// Still not have implementation
-const PixivApiFactory = () => {
-  const get = async () => {};
-
-  const public = {
-    get,
-  };
-
-  return Object.freeze(public);
-};
-
-const availableApis = [NekoBotApiFactory];
+// const availableApis = [NekoBotApiFactory, PixivApiFactory];
+const availableApis = [PixivApiFactory];
 
 const ImageApiFactory = () => {
+  // ===========================================================================================
+  // This function is a Wrapper for execute the following steps:
+  // - Get a random ImageAPI Factory (NekoBotApi || PixivApi)
+  // - Send a request using the randomized Factory
+  // - Return the result:
+  // - Result object format:
+  // {
+  //   imageUrl : String - The image url,
+  //   imageFilename : String - the image filename (with extension),
+  //   imagePath : String - Safe path possible to save the image,
+  //   imageWebpPath : String - Safe path possible to save the clone as webp image,
+  //   imageName : String : The filename without extension,
+  // }
+  // ===========================================================================================
   const get = async () => {
     const Factory = availableApis[random(0, availableApis.length - 1)];
 

@@ -11,6 +11,17 @@ const TwitterReplyFactory = () => {
   const FileManager = FileManagerFactory();
   const TwitterApi = TwitterApiFactory();
 
+  // ===========================================================================================
+  // This function is a Wrapper for execute the following steps:
+  // - Get URL of random image from ImageAPI (using ImageApi Factory)
+  // - Download the image and save in local disk in /temp folder (using Download Factory)
+  // - Clone the image but in webp format (using Converter Factory)
+  // - Send a Twitter Reply (using using TwitterApi Factory)
+  // - Delete all images on local disk, the original and webp, why they have already been sent to Twitter
+  // ===========================================================================================
+  // @param getStatus - Function to convert raw media data in a tweet parameters
+  // @param onComplete |optional| - Function to execute when task ends
+  // ===========================================================================================
   const send = async (getStatus, onComplete = () => {}) => {
     if (!getStatus)
       throw new Error("Function to get tweet status is necessary");
@@ -19,7 +30,7 @@ const TwitterReplyFactory = () => {
       const { imageUrl, imagePath, imageWebpPath } = await ImageApi.get();
 
       await Download.request(imageUrl, imagePath);
-      await Converter.convert(imagePath, imageWebpPath);
+      await Converter.convert(imagePath, imageWebpPath, "webp");
 
       const imageData = FileManager.getBase64(imageWebpPath);
 
@@ -36,7 +47,6 @@ const TwitterReplyFactory = () => {
       };
 
       console.log(datelog);
-
       console.log(error);
     } finally {
       onComplete();

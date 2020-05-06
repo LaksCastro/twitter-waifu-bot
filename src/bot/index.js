@@ -2,6 +2,9 @@ const AutomaticTweetFactory = require("./tweet");
 const AutomaticReplyFactory = require("./quote");
 
 const BotFactory = () => {
+  // ===========================================================================================
+  // This function is a Wrapper for to inialize all bot features
+  // ===========================================================================================
   const initialize = () => {
     const AutomaticTweet = AutomaticTweetFactory();
     const AutomaticReply = AutomaticReplyFactory();
