@@ -69,8 +69,8 @@ const TwitterReplyFactory = () => {
       // Try again in 30 seconds...
       setTimeout(() => send(getStatus, onComplete), 1000 * 10);
     } finally {
-      FileManager.del(imagePath);
-      FileManager.del(imageWebpPath);
+      imagePath && FileManager.del(imagePath);
+      imageWebpPath && FileManager.del(imageWebpPath);
     }
   };
 
