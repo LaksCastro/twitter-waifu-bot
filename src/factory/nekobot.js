@@ -43,10 +43,11 @@ const NekoBotApiFactory = () => {
   // ===========================================================================================
   const generateResult = async (response) => {
     const {
-      data: { message: imageUrl, img_name: imageFilename },
+      data: { message: imageUrl },
     } = response;
 
     const imageId = `neko__bot--${imageUrl}`;
+    const imageFilename = imageId.replace(/[/\\\:]/g, "-").normalize("NFD");
 
     const imageName = imageFilename
       .split(".")
